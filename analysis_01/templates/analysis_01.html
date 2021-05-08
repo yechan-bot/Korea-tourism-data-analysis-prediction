@@ -1,0 +1,501 @@
+{% extends "base.html" %}
+{% load static %}
+{% block explain_contents %}
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis_01</title>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <style>
+    .title {
+      font-size: 40px;
+      text-align: center;
+      padding: 3% 5% 0
+    }
+
+    hr {
+      width: 30%;
+      margin: 0.5% auto 0.5%
+    }
+
+    .subtitle {
+      font-size: 25px;
+      text-align: center;
+      margin-bottom: 1%
+    }
+
+    .content {
+      font-size: 20px;
+      text-align: center;
+      padding: 3% 0 0;
+    }
+
+    .content li {
+      margin-top: 1%
+    }
+
+    #datalab-icon {
+      width: 30%;
+      height: 20%;
+      margin: 0px auto;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    #satisfication-avg {
+      background-color: red;
+      width: 50%;
+      height: 60%;
+      margin: 3% auto;
+    }
+
+    .explain {
+      text-align: center;
+      margin: 0px auto 4%;
+      font-size: 20px
+    }
+
+    .explain b {
+      font-size: 35px
+    }
+
+    #communication {
+      width: 95%;
+      height: 70%;
+      margin: 2% auto;
+    }
+
+    #communication #left {
+      width: 49%;
+      height: 100%;
+      float: left;
+    }
+
+    #communication #right {
+      width: 49%;
+      height: 100%;
+      float: right;
+    }
+
+    #button_section {
+      width: 30%;
+      height: 8%;
+      margin: 0 auto 1%;
+    }
+
+    #button_section button {
+
+      width:33.3%;
+      height:100%;
+      background-color: #f8585b;
+      border: none;
+      color:#fff;
+      padding: 15px 0;
+      text-align: center;
+      text-decoration: none;
+
+      font-size: 20px;
+      cursor: pointer;
+      float:left;
+    }
+
+    .arrow {
+      style="background-color: purple;
+      width:30%; height:100%;
+      float:left;
+      padding-left: 25%;
+      padding-top: 17%;
+      padding-bottom: 17%;
+      padding-right:2%;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+
+    /* The dots/bullets/indicators */
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+
+
+
+    .active,
+    .dot:hover {
+      background-color: #717171;
+    }
+
+    /* Fading animation */
+    .fade {
+      -webkit-animation-name: fade;
+      -webkit-animation-duration: 1.5s;
+      animation-name: fade;
+      animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+      from {
+        opacity: .4
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    @keyframes fade {
+      from {
+        opacity: .4
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    /* On smaller screens, decrease text size */
+    @media only screen and (max-width: 300px) {
+
+      .prev,
+      .next,
+      .text {
+        font-size: 15px
+      }
+    }
+
+    .slideimg {
+      padding-left: 10%;
+      margin: 0, auto;
+      width: 10%;
+      height: 10%
+    }
+
+    </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+
+<body>
+
+  <div style="background-color:#e9e9e9; height:100%">
+      <div class="title">방한 외국인 관광객 만족도 개선 시 기대효과</div>
+      <hr>
+      <div style="width: 90%; height: 60%; margin: 2% auto">
+          <div id="graph" style="width:50%; height:100%; float:left"></div>
+          <div style="width:50%; height:100%; float:left">
+              <img src="{% static 'img/analysis_01/return_predict.png' %}">
+          </div>
+      </div>
+      <div class="content">
+        <li>한국 관광 만족도 점수가 가장 낮은 항목 : 언어소통 만족도</li>
+        <li>언어소통 만족도 점수 상승 시 한국 재방문의사 점수 상승</li>
+      </div>
+  </div>
+
+
+  <div class="title">주제 소개</div>
+  <hr>
+  <div class="subtitle">한국 관광 만족도 개선 시 기대 효과</div>
+  <div class="content">
+      <li>한국 관광 만족도 점수가 가장 낮은 항목 탐색</li>
+      <li>해당 만족도 개선 방안 도출</li>
+      <li>해당 만족도 개선 시 기대효과 예측</li>
+  </div>
+
+  <div class="subtitle" style="margin-top: 5%">데이터 출처</div>
+  <div id="datalab-icon">
+      <a href="https://datalab.visitkorea.or.kr/datalab/portal/main/getMainForm.do">
+          <img src="{% static 'img/analysis_01/datalab-icon.jpg' %}"></a>
+  </div>
+
+  <div class="title">분석과정</div>
+  <hr>
+  <div class="subtitle">데이터 수집</div>
+  <div class="content">
+      <li>한국 관광 만족도 데이터 (국가별, 연령별, 성별)</li>
+      <li>재방문 데이터</li>
+      <li>한국 관광 수입 데이터</li>
+  </div>
+
+  <div id="satisfication-avg" style="height: 900px">
+      <img src="{% static 'img/analysis_01/satisfication_avg.png' %}">
+  </div>
+
+  <div class="explain">"언어소통" 항목 만족도 점수 평균 가장 낮음</div>
+
+  <div class="subtitle">언어소통 만족도를 개선할 방법은?</div>
+
+  <div id="communication">
+      <div id="left">
+          <img src="{% static 'img/analysis_01/tourist_country.png' %}">
+      </div>
+      <div id="right">
+          <img src="{% static 'img/analysis_01/communication_country.png' %}">
+      </div>
+  </div>
+
+  <div class="explain">
+      한국 관광객 수에 비해 언어소통 만족도가 낮은 국가<br>
+      <b>필리핀 태국 베트남</b>
+  </div>
+
+
+  <div id="button_section">
+      <button id="philippine" onclick="toggle_image(this.id)">필리핀</button>
+      <button id="thailand" onclick="toggle_image(this.id)">태국</button>
+      <button id="vietnam" onclick="toggle_image(this.id)">베트남</button>
+  </div>
+
+
+  <div class="slideshow-container">
+      <div class="arrow">
+          <a class="prev" onclick="plusSlides(-1)" style="font-size:50px; text-align:center">&#10094;</a>
+      </div>
+
+      <div class="mySlides fade" style="width:40%; height: 100%; float:left">
+          <img id="month" src="{% static 'img/analysis_01/philippine_month.png' %}" style="width:100%; height:100%">
+      </div>
+
+      <div class="mySlides fade" style="width:40%; height: 100%; float:left;">
+          <img id="age" src="{% static 'img/analysis_01/philippine_age.png' %}" style="width:100%; height:100%">
+      </div>
+
+      <div class="mySlides fade" style="width:40%; height: 100%; float:left;">
+          <img id="gender" src="{% static 'img/analysis_01/philippine_gender.png' %}" style="width:100%; height:100%">
+      </div>
+
+      <div class="mySlides fade" style="width:40%; height: 100%; float:left;">
+          <img id="visit" src="{% static 'img/analysis_01/philippine_visit.png' %}" style="width:100%; height:100%">
+      </div>
+
+      <div class="mySlides fade" style="width:40%; height: 100%; float:left;">
+          <img id="activity" src="{% static 'img/analysis_01/philippine_activity.png' %}" style="width:100%; height:100%">
+      </div>
+
+      <div class="arrow_right"
+           style="width:30%; height:100%; float:left; padding-right:25%; padding-top: 17%; padding-bottom: 17%; padding-left:2%">
+          <a class="next" onclick="plusSlides(1)" style="font-size:50px; text-align:center">&#10095;</a>
+          <!--          <a class="next" onclick="plusSlides(-1)" style="font-size:50px; text-align:center">&#10094;</a>-->
+      </div>
+
+  </div>
+  <div style="text-align:center; margin-bottom: 3%">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+  </div>
+
+  <script>
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  var chart = am4core.create("graph", am4charts.XYChart);
+  chart.padding(20, 20, 10, 10);
+
+  var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.dataFields.category = "network";
+  categoryAxis.renderer.minGridDistance = 1;
+  categoryAxis.renderer.inversed = true;
+  categoryAxis.renderer.grid.template.disabled = true;
+
+  var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+  valueAxis.min = 0;
+
+  var series = chart.series.push(new am4charts.ColumnSeries());
+  series.dataFields.categoryY = "network";
+  series.dataFields.valueX = "MAU";
+  series.tooltipText = "{valueX.value}"
+  series.columns.template.strokeOpacity = 0;
+  series.columns.template.column.cornerRadiusBottomRight = 5;
+  series.columns.template.column.cornerRadiusTopRight = 5;
+
+  var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+  labelBullet.label.horizontalCenter = "left";
+  labelBullet.label.dx = 10;
+  labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#.0as')}";
+  labelBullet.locationX = 1;
+
+  // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+  series.columns.template.adapter.add("fill", function(fill, target){
+    return chart.colors.getIndex(target.dataItem.index);
+  });
+
+  categoryAxis.sortBySeries = series;
+  chart.data = [
+      {
+        "network": "치안",
+        "MAU": 94
+      },
+      {
+        "network": "숙박",
+        "MAU": 93
+      },
+      {
+        "network": "대중교통",
+        "MAU": 92
+      },
+      {
+        "network": "출입국절차",
+        "MAU": 92
+      },
+      {
+        "network": "음식",
+        "MAU": 90
+      },
+      {
+        "network": "관광지 매력도",
+        "MAU": 90
+      },
+      {
+        "network": "쇼핑",
+        "MAU": 89
+      },
+      {
+        "network": "관광안내서비스",
+        "MAU": 85
+      },
+      {
+        "network": "여행경비",
+        "MAU": 83
+      },
+      {
+        "network": "언어소통",
+        "MAU": 74
+      }
+    ]
+
+
+
+  }); // end am4core.ready()
+
+  </script>
+
+  <script>
+      function toggle_image(country) {
+        if(country=="philippine") {
+        document.getElementById("month").src = "{% static 'img/analysis_01/philippine_month.png' %}";
+        document.getElementById("age").src = "{% static 'img/analysis_01/philippine_age.png' %}";
+        document.getElementById("gender").src = "{% static 'img/analysis_01/philippine_gender.png' %}";
+        document.getElementById("visit").src = "{% static 'img/analysis_01/philippine_visit.png' %}";
+        document.getElementById("activity").src = "{% static 'img/analysis_01/philippine_activity.png' %}";
+      }
+
+      else if(country=="thailand") {
+        document.getElementById("month").src = "{% static 'img/analysis_01/thailand_month.png' %}";
+        document.getElementById("age").src = "{% static 'img/analysis_01/thailand_age.png' %}";
+        document.getElementById("gender").src = "{% static 'img/analysis_01/thailand_gender.png' %}";
+        document.getElementById("visit").src = "{% static 'img/analysis_01/thailand_visit.png' %}";
+        document.getElementById("activity").src = "{% static 'img/analysis_01/thailand_activity.png' %}";
+      }
+
+      else if(country=="vietnam") {
+        document.getElementById("month").src = "{% static 'img/analysis_01/vietnam_month.png' %}";
+        document.getElementById("age").src = "{% static 'img/analysis_01/vietnam_age.png' %}";
+        document.getElementById("gender").src = "{% static 'img/analysis_01/vietnam_gender.png' %}";
+        document.getElementById("visit").src = "{% static 'img/analysis_01/vietnam_visit.png' %}";
+        document.getElementById("activity").src = "{% static 'img/analysis_01/vietnam_activity.png' %}";
+      }
+      }
+
+  </script>
+
+  <script>
+      var slideIndex = 1;
+      showSlides(slideIndex);
+
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+      }
+
+  </script>
+
+  <div class="subtitle">위 국가의 특징</div>
+  <div style="width:50%; height:50%; margin: 2% auto">
+      <img src="{% static 'img/analysis_01/country-feature.png' %}">
+  </div>
+  <div class="content">
+      <li>4월, 10월에 관광객수 가장 많음</li>
+      <li>남성보다 여성 관광객이 더 많음</li>
+      <li>20대와 30대가 절반 이상 차지</li>
+      <li>서울,경기,강원 지역 주로 방문</li>
+      <li>쇼핑, 역사유적지방문, 자연경관감상 주요활동</li>
+  </div>
+
+  <div class="title">방한 외국인 관광객 만족도 개선 시 기대효과</div>
+  <hr>
+  <div class="subtitle">다중회귀분석 진행</div>
+  <div class="explain">
+      <li>독립변수 : 언어소통 만족도, 출입국절차 만족도, 관광지 매력도 만족도</li>
+      <li>종속변수 : 재방문의사 점수</li>
+  </div>
+  <div style="background-color:red; width:40%; height:70%; margin:0 auto;">
+      <img src="{% static 'img/analysis_01/model_evaluation.png' %}">
+  </div>
+  <div class="explain">
+      R-Square Score = 0.9047680240786486
+  </div>
+
+  <div style="background-color: red; width:40%; height:70%; margin: 0 auto 2%;">
+      <img src="{% static 'img/analysis_01/return_predict.png' %}">
+  </div>
+
+  <div class="explain">
+      <li>언어소통 만족도가 증가함에 따라 재방문의사 점수 상승</li>
+      <li>언어소통 개선 시 긍정적인 효과 확인</li>
+  </div>
+  {% endblock explain_contents %}
+</body>
+
+</html>

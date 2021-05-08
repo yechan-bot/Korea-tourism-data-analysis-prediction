@@ -1,0 +1,426 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="en">
+
+<head>
+    <style>
+        #visitor, #price, #search {
+        width:100px;
+        background-color: #123456;
+        border: none;
+        color:#fff;
+        padding: 15px 0;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px;
+        cursor: pointer;
+        border-radius:10px;
+        }
+        th,td{
+            border: 1px;
+            padding: 10px;
+        }
+        #mya, #mya1, #mya2, #mya3 {
+            color: blue;
+        }
+        #mya:hover, #mya1:hover, #mya2:hover, #mya3:hover {
+            color: red;
+        }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis_05</title>
+    <link href="change.css" rel="stylesheet">
+    {% block header %}
+    {% endblock header%}
+</head>
+<body>
+<br>
+<br>
+<br>
+<p align="center"><span style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">한국 관광 소비 분석/변화</span></p>
+<br>
+<br>
+
+
+<div class="123" align="center">
+    <table border="1" align="center" style="background-color: #e9e9e9; padding-top: 50px">
+        <th><img src="{% static 'img/analysis_05/19~20 월별 방문자 수 비교 그래프.png' %}" style="width: 95%"></th>
+        <th><img src="{% static 'img/analysis_05/21년 12월까지 예측.png' %}"style="width: 109%"></th>
+        <th><img src="{% static 'img/analysis_05/2020 일별 데이터 상관분석 히트맵.png' %}" style="width: 45%"><img
+        src="{% static 'img/analysis_05/2020 일별 데이터 상관분석 페어플롯.png' %}" style="width: 55%"></th>
+        </tr>
+        <tr align="center">
+            <td><span style="border-radius: 5px;padding: 0.6em 1em;background: #aaaaaa; font-size:13px;" >2019년과 2020년 외부관광객 방문자 수 비교</span></td>
+            <td><span style="border-radius: 5px;padding: 0.6em 1em;background: #aaaaaa; font-size:13px;">2021년 12월까지의 방문자 수 예측</span></td>
+            <td><span style="border-radius: 5px;padding: 0.6em 1em;background: #aaaaaa; font-size:13px;">2020 방문자 수, 소비액, 목적지 검색 횟수 일별 데이터 상관분석</span></td>
+
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<br>
+<br>
+
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+
+<br>
+<br>
+<br>
+<center><p><span style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">주제 소개</span></p></center>
+
+<br>
+<br>
+<center> <h1> 한국 관광 소비 변화 분석 및 예측 </h1></center>
+<br>
+<br>
+<center><h3>코로나 이전과 이후의 관광지 소비의 변화를 시각화 하여 비교하고  향후 외부 방문자의 수를 예측하여 정보를 제공한다.</h3></center>
+<br>
+<br>
+<div align="center" style="margin: 0 auto">
+    <ol>
+        <li><a href="#list1" id="mya" title="누르면 이동합니다">2019년~2020년 방문자 수, 소비액, 목적지 검색 횟수 월별 그래프 비교</a></li><br>
+<!--        <ul>-->
+<!--            <li> 2019년~2020년 T-Map 기반 전국 목적지 검색 월별 데이터</li>-->
+<!--            <li> 2019년~2020년 KT 이동통신 기반 전국 관광지 외부 + 외국인 방문자 수 월별 데이터</li>-->
+<!--            <li> 2019년~2020년 BC카드 사용 전국 관광지 소비액 월별 데이터</li>-->
+<!--        </ul>-->
+        <br>
+        <li><a href="#list2" id="mya1" title="누르면 이동합니다">2019 방문자 수, 소비액, 목적지 검색 횟수 일별 데이터 상관분석</a> </li><br>
+<!--        <ul>-->
+<!--            <li> 2019년 T-Map 기반 전국 목적지 검색 일별 데이터</li>-->
+<!--            <li> 2019년 KT 이동통신 기반 전국 관광지 외부 + 외국인 방문자 수 일별 데이터</li>-->
+<!--            <li> 2019년 BC카드 사용 전국 관광지 소비액 일별 데이터</li>-->
+<!--        </ul>-->
+        <br>
+        <li><a href="#list3" id="mya2" title="누르면 이동합니다">2020 방문자 수, 소비액, 목적지 검색 횟수 일별 데이터 상관분석</a> </li><br>
+<!--        <ul>-->
+<!--            <li> 2020년 T-Map 기반 전국 목적지 검색 일별 데이터</li>-->
+<!--            <li> 2020년 KT 이동통신 기반 전국 관광지 외부 + 외국인 방문자 수 일별 데이터</li>-->
+<!--            <li> 2020년 BC카드 사용 전국 관광지 소비액 일별 데이터</li>-->
+<!--        </ul>-->
+        <br>
+        <li><a href="#list4" id="mya3" title="누르면 이동합니다">2021년 방문자 수 예측</a> </li><br>
+<!--        <ul>-->
+<!--            <li> 2019년 1월 ~ 2021년 3월 일일 외부방문자 수 데이터</li>-->
+<!--        </ul>-->
+    </ol>
+
+</div>
+<br>
+<br>
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"></p>
+<br>
+<br>
+<br>
+<center><p><span style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;"> 데이터 출처 </span></p></center>
+<br>
+<br>
+<div align="center">
+<img src="{% static 'img/analysis_05/한국관광 데이터랩.jpg' %}">
+</div>
+
+<p align="center"><span style="background: linear-gradient(to right, #ffa7a3, #5673bd); padding: 0.43em 1em; font-size: 19px; border-radius: 3px; color: #ffffff;">한국관광 데이터랩</span></p>
+
+
+<!--<div>-->
+<!--    <ul>-->
+<!--  <li>first item</li>-->
+<!--  <li>second item-->
+<!--  &lt;!&ndash; Look, the closing </li> tag is not placed here! &ndash;&gt;-->
+<!--    <ul>-->
+<!--      <li>second item first subitem</li>-->
+<!--      <li>second item second subitem-->
+<!--      &lt;!&ndash; Same for the second nested unordered list! &ndash;&gt;-->
+<!--        <ul>-->
+<!--          <li>second item second subitem first sub-subitem</li>-->
+<!--          <li>second item second subitem second sub-subitem</li>-->
+<!--          <li>second item second subitem third sub-subitem</li>-->
+<!--        </ul>-->
+<!--      </li> &lt;!&ndash; Closing </li> tag for the li that-->
+<!--                  contains the third unordered list &ndash;&gt;-->
+<!--      <li>second item third subitem</li>-->
+<!--    </ul>-->
+<!--  &lt;!&ndash; Here is the closing </li> tag &ndash;&gt;-->
+<!--  </li>-->
+<!--  <li>third item</li>-->
+<!--</ul>-->
+<!--</div>-->
+
+<br>
+<br>
+
+<p id="list1" style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+
+<br>
+<br>
+<br>
+<br>
+<center>
+    <br>
+    <div class="parison">
+        <p><span style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">2019년~2020년 방문자 수, 소비액, 목적지 검색 횟수 월별 그래프 비교 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+  <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+</svg></span>
+        </p>
+        <br>
+        <img id="img" src="{% static 'img/analysis_05/19~20 월별 방문자 수 비교 그래프.png' %}">
+        <!--       <td id="td"></td>-->
+        <center><p><span class="text"
+                         style="border-radius: 5em; padding: 0.6em 1em; background: #F9F9F9; box-shadow: 1px 2px 10px rgba(0,0,0,0.2);  margin-left: 5px;">코로나를 기점으로 전국 관광객 중 외부 + 외국인의 방문자 수는 줄었다.  (단위 : Million)</span>
+        </p></center>
+        <br>
+        <br>
+        <button id="visitor" onclick="togglelmg(this.id),changeText1(this.id)">방문자 수</button>
+        <button id="price" onclick="togglelmg(this.id),changeText2(this.id)">소비액</button>
+        <button id="search" onclick="togglelmg(this.id),changeText3(this.id)">목적지 검색</button>
+        <!--            <img id="img" src="{% static 'img/analysis_05/19~20 월별 방문자 수 비교 그래프.png' %}">-->
+        <!--            <img class="small" src="{% static 'img/analysis_05/19~20 월별 지출액 비교 그래프.png' %}">-->
+    </div>
+    <script>
+        function togglelmg(topic){
+            if(topic=="visitor")
+            document.getElementById('img').src = "{% static 'img/analysis_05/19~20 월별 방문자 수 비교 그래프.png' %}"
+            else if(topic=="price")
+            document.getElementById('img').src = "{% static 'img/analysis_05/19~20 월별 지출액 비교 그래프.png' %}"
+            else if(topic=="search")
+            document.getElementById('img').src = "{% static 'img/analysis_05/19~20 월별 목적지 검색 비교 그래프.png' %}"
+        }
+        // function changeText(id, src){
+        //     var td=document.getElementById(id);
+        //     if(td){
+        //         td.innerText= "가나다";
+        //     }
+        //     else if(topic1=="price")
+        //     document.getElementById('#td').innerText = "라마바";
+        //     else if(topic1=="search")
+        //     document.getElementById('#td').innerText = "사아자";
+        // }
+        function changeText1(){
+            x = document.getElementsByClassName("text")[0];
+            x.innerText="코로나를 기점으로 전국 관광객 중 외부 + 외국인의 방문자 수는 줄었다. (단위 : Million)";
+        }
+        function changeText2(){
+            x = document.getElementsByClassName("text")[0];
+            x.innerText="방문자 수의 감소로 관광 소비액도 줄었다는 것을 알 수 있다. (단위 : Trillion)";
+        }
+        function changeText3(){
+            x = document.getElementsByClassName("text")[0];
+            x.innerText="전국 관광 목적지의 검색 횟수는 2019년보다 2020년이 더 많았다. (단위 : Million)";
+        }
+
+        function changeLangSelect(){
+        var langSelect = document.getElementById("id-lang");
+
+    // select element에서 선택된 option의 value가 저장된다.
+        var selectValue = langSelect.options[langSelect.selectedIndex].value;
+
+    // select element에서 선택된 option의 text가 저장된다.
+        var selectText = langSelect.options[langSelect.selectedIndex].text;
+}
+
+
+    </script>
+</center>
+
+<!--<select id="id-lang" name="lang" onchange="changeLangSelect()">-->
+<!--<option value="" selected disabled>언어를 선택</option>-->
+<!--<option value="en">en(영어)</option>-->
+<!--<option value="ko">ko(한글)</option>-->
+<!--</select>-->
+<br>
+<br>
+<br>
+<br>
+<p id="list2" style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center><span
+        style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">2019 방문자 수, 소비액, 목적지 검색 횟수 일별 데이터 상관분석 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+  <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+</svg></span>
+</center>
+<br>
+<br>
+<br>
+<br>
+
+<center><img src="{% static 'img/analysis_05/2019 일별 데이터 상관분석 히트맵.png' %}"><img
+        src="{% static 'img/analysis_05/2019 일별 데이터 상관분석 페어플롯.png' %}" style="width: 40%"></center>
+<br>
+
+<div class="container" align="center">
+    <br>
+    <li> 목적지 검색 횟수 : 2019년 T-Map 기반 전국 목적지 검색 일별 데이터</li>
+    <br>
+    <li> 방문자 수 : 2019년 KT 이동통신 기반 전국 관광지 외부 + 외국인 방문자 수 일별 데이터</li>
+    <br>
+    <li> 관광 소비액 : 2019년 BC카드 사용 전국 관광지 소비액 일별 데이터</li>
+    <br>
+</div>
+
+
+<div class="tabel" align="center">
+    <table border="1" align="center">
+        <th>데이터</th>
+        <th>상관계수</th>
+        <th>결과</th>
+        <tr>
+            <td>목적지 검색 횟수와 방문자 수</td>
+            <td>0.75</td>
+            <td>강한 양적 상관관계</td>
+        </tr>
+        <tr>
+            <td>목적지 검색 횟수와 관광 소비액</td>
+            <td>0.91</td>
+            <td>강한 양적 상관관계</td>
+        </tr>
+        <tr>
+            <td>방문자 수와 관광 소비액</td>
+            <td>0.63</td>
+            <td>뚜렷한 양적 상관관계</td>
+        </tr>
+    </table>
+</div>
+<br>
+<br>
+<br>
+<br>
+<p id="list3" style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<center><span
+        style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">2020 방문자 수, 소비액, 목적지 검색 횟수 일별 데이터 상관분석 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+  <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708l-2 2zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708l-2 2zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+</svg></span>
+</center>
+<br>
+<center><img src="{% static 'img/analysis_05/2020 일별 데이터 상관분석 히트맵.png' %}"> <img
+        src="{% static 'img/analysis_05/2020 일별 데이터 상관분석 페어플롯.png' %}" style="width: 40%"></center>
+<br>
+<div class="container" align="center">
+    <br>
+    <li> 목적지 검색 횟수 : 2020년 T-Map 기반 전국 목적지 검색 일별 데이터</li>
+    <br>
+    <li> 방문자 수 : 2020년 KT 이동통신 기반 전국 관광지 외부 + 외국인 방문자 수 일별 데이터</li>
+    <br>
+    <li> 관광 소비액 : 2020년 BC카드 사용 전국 관광지 소비액 일별 데이터</li>
+    <br>
+</div>
+
+<div class="tabel" align="center">
+    <table border="1" align="center">
+        <th>데이터</th>
+        <th>상관계수</th>
+        <th>결과</th>
+        <tr>
+            <td>목적지 검색 횟수와 방문자 수</td>
+            <td>0.75</td>
+            <td>강한 양적 상관관계</td>
+        </tr>
+        <tr>
+            <td>목적지 검색 횟수와 관광 소비액</td>
+            <td>0.82</td>
+            <td>강한 양적 상관관계</td>
+        </tr>
+        <tr>
+            <td>방문자 수와 관광 소비액</td>
+            <td>0.73</td>
+            <td>강한 양적 상관관계</td>
+        </tr>
+    </table>
+</div>
+<br>
+<br>
+<br>
+<br>
+<p id="list4" style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+<!--<center><img src="/analysis_05/plotly_graph/"></center>-->
+<br>
+<br>
+<br>
+<br>
+<br>
+<center><span
+        style="border-radius: 15px 15px 15px 0; font-size:25px; border: 3px solid #000000; padding: 0.5em 0.6em; color: #000000;">2021년 4월 이후 방문자 수 예측 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+  <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+</svg></span>
+</center>
+<br>
+<br>
+<center><h2>2019년 1월 ~ 2021년 3월까지의 일일 외부방문자 수 데이터 사용</h2></center>
+<br>
+<center><img src="{% static 'img/analysis_05/19~21 3월까지 방문자 수 decompose.png' %}"></center>
+<div align="center">
+    <br>
+    <li>Observerd : 데이터</li>
+    <li>Trend : 추세</li>
+    <li>Seasonal : 계절성</li>
+    <li>Resid : 잔차 (관측값과 적합값 간 차이)</li>
+</div>
+<br>
+<br>
+<center><h1> 1. 위 데이터로 90일 예측 ↓ </h1></center>
+
+<center><img src="{% static 'img/analysis_05/약 2년치 데이터로 90일 예측.png' %}"></center>
+<br>
+<center><h3> <span style="border-radius: 5px;padding: 0.6em 1em;background: #e9e9e9;"> 검은색 점이 없는 부분이 예측 값 </span> </h3></center>
+
+<br>
+<br>
+<br>
+
+<div class="tabel" align="center">
+    <table border="1" align="center">
+        <th><h2>2. 실제 방문자 수 데이터와 비교</h2></th>
+        <th><h2>3. 정확도 </h2> </th>
+        <tr align="center">
+            <td align="center"><img src="{% static 'img/analysis_05/4월 실제 값과 예측 데이터 비교.png' %}" style="width: 110%"></td>
+            <td><img src="{% static 'img/analysis_05/데이터 정확도.png' %}" style="width: 80%"></td>
+        </tr>
+        <tr align="center">
+            <td> 4월 26일 기준, 공개된 4월 19일까지의 데이터와 예측 데이터 비교</td>
+            <td> 약 73%의 정확도</td>
+        </tr>
+    </table>
+</div>
+
+<!--<center><h1> 2. 4월 26일 기준, 공개된 4월 19일까지의 데이터와 예측으로 나온 데이터와 비교 </h1></center>-->
+<!--<center><img src="{% static 'img/analysis_05/4월 실제 값과 예측 데이터 비교.png' %}"> </center>-->
+<!--<center><img src="{% static 'img/analysis_05/데이터 정확도.png' %}"> </center>-->
+<!--<center><h3> <span style="border-radius: 5px;padding: 0.6em 1em;background: #e9e9e9;"> 약 73%의 정확도 </span></h3></center>-->
+
+<br>
+<br>
+<br>
+
+<center><h1> 4. 2021년 12월까지의 예측 그래프 </h1></center>
+<center><img src="{% static 'img/analysis_05/21년 12월까지 예측.png' %}"> </center>
+<br>
+<center><h3> <span style="border-radius: 5px;padding: 0.6em 1em;background: #e9e9e9;">점점 하반기가 될수록 관광 방문자 수는 증가할거라 예측됨</span> </h3></center>
+<br>
+<br>
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+{% endblock explain_contents%}
+
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis_01</title>
+    <style>
+        <style>
+
+        #introduceTitle {
+            text-align: center;
+            padding: 5% 5% 0
+        }
+
+        #introduceTitle h1 {
+            font-size: 50px;
+        }
+
+        #introduceContent {
+            text-align: center;
+            padding: 2% %% 0;
+            font-size: 30px;
+        }
+
+        #memberTitle {
+            font-size: 40px;
+            text-align: center;
+            padding: 7% 0 1%;
+        }
+
+        #member {
+            padding: 1% 1% 0;
+            height: 60%;
+        }
+
+        #image {
+            height: 40%
+        }
+
+        #image div {
+            width: 14.28%;
+            height:100%;
+            float:left;
+            padding: 0 0.5% 0
+        }
+
+        #name {
+            height:10%;
+            padding-top:0.5%
+        }
+
+        #name div {
+            float: left;
+            width: 14.28%;
+            height:100%;
+            text-align:
+            center;
+            font-size: 30px
+        }
+
+        #role {
+            height: 45%;
+            padding-top: 1%;
+        }
+
+        #role div {
+             width: 14.28%;
+             height:100%;
+             float:left;
+             padding: 0 1% 0
+        }
+
+        #role div h1 {
+            text-align: center;
+            font-size: 30px
+        }
+
+        #role ul {
+            list-style: disc;
+            text-align: center;
+            font-size: 30px
+        }
+
+
+
+    </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+<body>
+
+<div id="memberTitle" >
+    <h1><b>Project Member</b></h1>
+<!--    <hr style="border: solid 1px black; width: 30%; align: center;">-->
+</div>
+
+<div id="member">
+    <div id="image">
+        <div><img src="{% static 'img/mainpage/백주현.jpg' %}" style="border-radius: 50%;" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/안준우.jpg' %}" style="border-radius: 50%;" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/profile.png' %}" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/profile.png' %}" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/profile.png' %}" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/신경철.jpg' %}" style="border-radius: 50%;" width="100%" height="100%"></div>
+        <div><img src="{% static 'img/mainpage/성시우.jpg' %}" style="border-radius: 50%;" width="100%" height="100%"></div>
+    </div>
+
+    <div id="name">
+        <div>백주현</div>
+        <div>안준우</div>
+        <div>김성진</div>
+        <div>윤정윤</div>
+        <div>이재호</div>
+        <div>신경철</div>
+        <div>성시우</div>
+    </div>
+    <div id="role">
+        <div>
+            <ul>
+                <li>한국관광 수입 개선 위한 데이터 분석</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>거리두기 단계에<br>따른 관광객 분석</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>시설에 따른<br>관광객 예측</li>
+                <li>관광지 타입 분석</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>전세계 코로나 확진자 수와 방한 관광객</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>한국 음료 사진 분류</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>한국 관광 소비 분석 변화</li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>검색 트래픽에 다른 한국 관광 증가 분석</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock explain_contents%}
+</body>
+</html>

@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<html lang="ko">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis_01</title>
+    {% block header %}
+    {% endblock header%}
+</head>
+
+<style>
+#heads{
+    margin-top: 50px;
+    font-size: 50px;
+    text-align: center;
+}
+
+#all{
+    width: 100%;
+    height: 600px;
+    border: 0px solid #000;
+}
+
+#left{
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#right{
+    width: 50%;
+    float: right;
+    box-sizing: border-box;
+}
+#img_box{
+    height: 500px;
+    width: 500px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin-top: 100px;
+    margin-left: 15%;
+}
+
+.info_1{
+    margin-left: 30px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.info_2{
+    margin-left: 30px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+#info2{
+    margin-top: 400px;
+}
+
+#info_box{
+    margin-top: 100px;
+    height: 800px;
+    width:  700px;
+    border: 5px solid black;
+}
+#info_box2{
+    height: 130px;
+    width: 500px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin-top: 100px;
+    margin-left: 15%;
+    text-align: center;
+}
+
+.info_box_left{
+    border: 2px solid black;
+    width: 50%;
+    height: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+
+.info_box_right{
+    border: 2px solid black;
+    width: 50%;
+    height: 50%;
+    float: right;
+}
+.for{
+    display: none;
+}
+
+</style>
+
+
+<body style="overflow:scroll;">
+<div id="heads">
+     음료수 정보창
+</div>
+
+<div id="all">
+    <div id="left">
+        <div id="lang">
+            <button class="btn btn-link" id="korean" onclick="korean()">한국어</button>
+            <button class="btn btn-link" id="english" onclick="english()">english</button>
+            <button class="btn btn-link" id="chinese" onclick="chinese()">中文</button>
+            <button class="btn btn-link" id="japanese" onclick="japanese()">日本</button>
+        </div>
+        <div id="img_box">
+            <img src="../../static/{{b}}" alt="error" width="470px;" height="430px;"/>
+        </div>
+        <div id="info_box2">
+            {% for re_cons1 in re_con1 %}
+            <a id="b_name"><h2> 음료수 이름 </h2> <br></a>
+                {{ re_cons1.name }}
+        </div>
+    </div>
+
+    <div id="right">
+        <div id="info_box">
+            <div class="info_box_left">
+                <div id="info1" class="info_1">
+                    <a id="b_info"><h1> 음료수 종류 </h1><br></a>
+                    {{ re_cons1.kind }}
+                </div>
+            </div>
+            <div class="info_box_left">
+                <div id="info3" class="info_1">
+                    <a id="b_flav"><h1> 음료수 맛 </h1><br></a>
+                    <div id="flavor_kor" class='kor'>{{ re_cons1.flavor }} </div>
+                    <div id="flavor_eng" class='for'>{{ re_cons1.flavor_eng }} </div>
+                    <div id="flavor_chi" class='for'>{{ re_cons1.flavor_chi }} </div>
+                    <div id="flavor_jap" class='for'>{{ re_cons1.flavor_jap }} </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="<info_box_right">
+                <div id="info2" class="info_2">
+                    <br>
+                    <a id="maybe"><h1> 이 음료수일 수도 있습니다! </h1></a>
+                    <br>
+                    <div class="container">
+                    {% for re_cons2 in re_con2 %}
+                        <div class="recons" name="recon">{{ re_cons2.name }}</div>
+                    {% endfor %}
+                    </div>
+                    <div class="container">
+                    <br>
+                    {% for re_cons3 in re_con3 %}
+                        <div class="recons" name="recon">{{ re_cons3.name }}</div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function korean(event){
+    document.querySelector('#heads').innerHTML = '<h2>음료수 정보창</h2>';
+    document.querySelector('#b_name').innerHTML = '<h2>음료수 이름</h2>';
+    document.querySelector('#b_info').innerHTML = '<h2>음료수 종류</h2>';
+    document.querySelector('#b_flav').innerHTML = '<h2>음료수 맛</h2>';
+    document.querySelector('#maybe').innerHTML = '<h2>이 음료수일 수도 있습니다.</h2>';
+    document.querySelector("#flavor_kor").style.display = 'block';
+    document.querySelector("#flavor_eng").style.display = 'none';
+    document.querySelector("#flavor_chi").style.display = 'none';
+    document.querySelector("#flavor_jap").style.display = 'none';
+}
+
+function english(event){
+    document.querySelector('#heads').innerHTML = '<h2>Beverage information window</h2>';
+    document.querySelector('#b_name').innerHTML = '<h2>Beverage name</h2>';
+    document.querySelector('#b_info').innerHTML = '<h2>Type of drink</h2>';
+    document.querySelector('#b_flav').innerHTML = '<h2>Drink taste</h2>';
+    document.querySelector('#maybe').innerHTML = '<h2>if not, it could be this.</h2>';
+    document.querySelector("#flavor_kor").style.display = 'none';
+    document.querySelector("#flavor_eng").style.display = 'block';
+    document.querySelector("#flavor_chi").style.display = 'none';
+    document.querySelector("#flavor_jap").style.display = 'none';
+}
+
+function chinese(event){
+    document.querySelector('#heads').innerHTML = '<h2>飲料信息窗口</h2>';
+    document.querySelector('#b_name').innerHTML = '<h2>飲料名稱</h2>';
+    document.querySelector('#b_info').innerHTML = '<h2>飲料種類</h2>';
+    document.querySelector('#b_flav').innerHTML = '<h2>喝的味道</h2>';
+    document.querySelector('#maybe').innerHTML = '<h2>如果沒有，那就可能是這樣。</h2>';
+    document.querySelector("#flavor_kor").style.display = 'none';
+    document.querySelector("#flavor_eng").style.display = 'none';
+    document.querySelector("#flavor_chi").style.display = 'block';
+    document.querySelector("#flavor_jap").style.display = 'none';
+}
+
+function japanese(event){
+    document.querySelector('#heads').innerHTML = '<h2>飲料情報ウィンドウ</h2>';
+    document.querySelector('#b_name').innerHTML = '<h2>飲料の名前</h2>';
+    document.querySelector('#b_info').innerHTML = '<h2>飲料の種類</h2>';
+    document.querySelector('#b_flav').innerHTML = '<h2>飲料の味</h2>';
+    document.querySelector('#maybe').innerHTML = '<h2>それがない場合、これであることもあります。</h2>';
+    document.querySelector("#flavor_kor").style.display = 'none';
+    document.querySelector("#flavor_eng").style.display = 'none';
+    document.querySelector("#flavor_chi").style.display = 'none';
+    document.querySelector("#flavor_jap").style.display = 'block';
+}
+</script>
+
+{% endblock explain_contents%}
+</body>
+</html>

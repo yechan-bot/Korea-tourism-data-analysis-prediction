@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>K-Digital 3Team Project</title>
+<style>
+  * {
+    outline: none;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  .page {
+    width: 100%;
+    height: 100vh;
+    background: #fdfdfd;
+    font-family: '고딕';
+    font-weight: 600;
+    letter-spacing: .03em;
+    color: #212121;
+  }
+
+  header {
+    text-align: center;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    height: 70px;
+    background: #212121;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    z-index:1
+  }
+
+  header #title{
+    padding-top: 0.75%;
+    margin-left:20%;
+    margin-right:17%;
+    float:left;
+    height: 100%;
+    width:60%;
+    font-size: 20px;
+  }
+
+  header #homeicon {
+    width:2%;
+    height: 100%;
+    float:left;
+    padding: 0.5% 0 0.5%;
+  }
+
+  main {
+    padding: 3% 5% 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  #nav-container {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    pointer-events: none;
+    z-index:2
+  }
+  #nav-container .bg {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 70px);
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s;
+    background: #000;
+
+  }
+  #nav-container:focus-within .bg {
+    visibility: visible;
+    opacity: .6;
+  }
+  #nav-container * {
+    visibility: visible;
+  }
+
+  .button {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    -webkit-appearance: none;
+    border: 0;
+    background: transparent;
+    border-radius: 0;
+    height: 70px;
+    width: 30px;
+    cursor: pointer;
+    pointer-events: auto;
+    margin-left: 25px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  .icon-bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #aaa;
+    transition: .3s;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 5px;
+  }
+
+  #nav-container:focus-within .button {
+    pointer-events: none;
+  }
+  #nav-container:focus-within .icon-bar:nth-of-type(1) {
+    transform: translate3d(0,8px,0) rotate(45deg);
+  }
+  #nav-container:focus-within .icon-bar:nth-of-type(2) {
+    opacity: 0;
+  }
+  #nav-container:focus-within .icon-bar:nth-of-type(3) {
+    transform: translate3d(0,-8px,0) rotate(-45deg);
+  }
+
+  #nav-content {
+    z-index:1;
+    margin-top: 70px;
+    padding: 20px;
+    width: 90%;
+    max-width: 450px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 70px);
+    background: #ececec;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    transform: translateX(-100%);
+    transition: transform .3s;
+    will-change: transform;
+    contain: paint;
+  }
+
+  #nav-content ul {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #nav-content li a {
+    padding: 10px 5px;
+    display: block;
+    text-transform: uppercase;
+    transition: color .1s;
+    font-size: 19px;
+  }
+
+  #nav-content li a:hover {
+    color: #BF7497;
+  }
+
+  #nav-container:focus-within #nav-content {
+    transform: none;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  a,
+  a:visited,
+  a:focus,
+  a:active,
+  a:link {
+    text-decoration: none;
+    outline: 0;
+  }
+
+  a {
+    color: currentColor;
+    transition: .2s ease-in-out;
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+  <header tabindex="0">
+    <div id="title">한국 관광 데이터 분석/예측 페이지</div>
+    <div id="homeicon">
+      <a href="/" ><img src="/static/img/mainpage/homeicon.png" style="height:100%; width: 100%"></a>
+    </div>
+  </header>
+  <div id="nav-container">
+    <div class="bg"></div>
+    <div class="button" tabindex="0">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabindex="0">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <br>
+
+        <li style="font-size: 23px"><b>Analysis</b></li>
+        <li><a href="/analysis_01">01. 한국관광 수입 개선을 위한 데이터 분석</a></li>
+        <li><a href="/analysis_02">02. 거리두기 단계에 따른 관광객 분석</a></li>
+        <li><a href="/analysis_03">03. 시설에 따른 관광객 예측</a></li>
+        <li><a href="/analysis_04">04. 전세계 코로나 확진자 수와 방한 관광객</a></li>
+        <li><a href="/analysis_05">05. 한국 관광 소비 분석 변화</a></li>
+        <li><a href="/analysis_06">06. 검색 트래픽에 따른 한국 관광 증가 분석</a></li>
+
+        <br>
+        <li style="font-size: 23px"><b>Service</b></li>
+        <li><a href="/function_01">01. 관광지 타입 분석 (산, 바다)</a></li>
+        <li><a href="/function_02">02. 한국 음료 사진 분류</a></li>
+
+        <br>
+        <li><a href="/member">Project Member</a></li>
+
+
+      </ul>
+    </div>
+  </div>
+
+  <main>
+    {% block explain_contents %}
+
+    {% endblock explain_contents%}
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis_01</title>
+    {% block header %}
+    {% endblock header%}
+</head>
+<body style="overflow:scroll;">
+
+<style>
+
+#all{
+    width: 100%;
+    height: 600px;
+    border: 0px solid #000;
+}
+
+#left{
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#right{
+    width: 50%;
+    float: right;
+    box-sizing: border-box;
+}
+
+#head_line{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 50px;
+}
+#file{
+    display:none;
+}
+#submit{
+    display:none;
+}
+#img_box{
+    height: 500px;
+    width: 500px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin-top: 100px;
+    margin-left: 15%;
+}
+#file2{
+    height: 80px;
+    width: 120px;
+    margin-left: 170px;
+    margin-top: 200px;
+}
+#revise{
+    margin-left: 75%;
+    display: none;
+    height: 80px;
+    width: 120px;
+}
+#confirm_box{
+    margin-top: 30px;
+}
+#submit2{
+    margin-left: 130px;
+    height: 80px;
+    width: 120px;
+}
+#explain1{
+    margin-top: 100px;
+}
+#explain2{
+    text-align: right;
+    margin-top: 30px;
+}
+#explain3{
+    margin-top: 30px;
+}
+#lang{
+    margin-left: 350px;
+}
+
+</style>
+
+<div id="head_line"> 이건 무슨 음료수일까 </div>
+
+  <form action="{% url 'upload_file' %}"  method="POST" enctype="multipart/form-data" >
+      {%  csrf_token  %}
+      <input type="file" name="file" id="file" accept="image/*" onchange="setThumbnail(event);">
+      {{ form }}
+    <input id= "submit" type="submit">
+  </form>
+
+<div id="all">
+    <div id="left">
+        <div id="img_box">
+            <div class="container">
+                <button type="button" class="btn btn-outline-primary" id="file2">이미지 선택</button>
+                <button type="button" class="btn btn-outline-success" id="revise">수정하기</button>
+            </div>
+        </div>
+    </div>
+    <div id="right">
+        <div id="lang">
+            <button class="btn btn-link" id="korean" onclick="korean()">한국어</button>
+            <button class="btn btn-link" id="english" onclick="english()">english</button>
+            <button class="btn btn-link" id="chinese" onclick="chinese()">中文</button>
+            <button class="btn btn-link" id="japanese" onclick="japanese()">日本</button>
+        </div>
+        <div id="explain1">
+            <h2> 기능 설명 </h2>
+            CNN 딥러닝 기술을 이용하여<br>
+            사진만으로 음료수의 정보를 파악할 수 있습니다.
+        </div>
+        <div id="explain2">
+            <h2> 사진은.. </h2>
+            1. 밝은 곳에서 촬영해야합니다.<br>
+            2. 음료수의 로고가 정확히 보여야합니다.<br>
+            3. 사진 한장에는 한종류, 한개의 음료만이 보여야합니다.<br>
+            4. 가능하다면 카메라에 최대한 근접한 상태로 촬영해주십시오.
+        </div>
+        <div id="explain3">
+            <h2> 사용 방법 </h2>
+            1. 사진을 촬영한다. <br>
+            - 상기 주의사항을 확인하고 사진을 편집한다.<br>
+            2. 이미지 선택 버튼을 클릭한다.<br>
+            3. 사진을 업로드한다.<br>
+            4. 확인 버튼을 클릭한다.<br>
+            5. 간단하다.
+        </div>
+    </div>
+</div>
+
+<div id="confirm_box">
+        <div class="container">
+            <button type="button" class="btn btn-outline-secondary" id="submit2">확인하기</button>
+        </div>
+</div>
+
+<script>
+
+$('#file2').click(function(){
+    $('#file').click();
+});
+
+$('#submit2').click(function(){
+    $('#submit').click();
+});
+
+function setThumbnail(event) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        img.setAttribute("width", "470px;");
+        img.setAttribute("height", "380px;");
+        document.querySelector("div#img_box").appendChild(img);
+        document.querySelector("#file2").style.display = 'none';
+        document.querySelector("#revise").style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+
+$('#revise').click(function(){
+    $('img').remove();
+    $('#file').click();
+});
+
+function korean(event){
+    document.getElementById("head_line").innerHTML = "이건 무슨 음료수일까";
+    document.getElementById("file2").innerHTML = "이미지 선택";
+    document.getElementById("revise").innerHTML = "이미지 수정";
+    document.getElementById("submit2").innerHTML = "이미지 확인";
+	document.getElementById("explain1").innerHTML = "<h2> 기능 설명 </h2> CNN 딥러닝 기술을 이용하여<br> 사진만으로 음료수의 정보를 파악할 수 있습니다.";
+    document.getElementById("explain2").innerHTML = "<h2> 사진은.. </h2>1. 밝은 곳에서 촬영해야합니다.<br>2. 음료수의 로고가 정확히 보여야합니다.<br>3. 사진 한장에는 한종류, 한개의 음료만이 보여야합니다.<br>4. 가능하다면 카메라에 최대한 근접한 상태로 촬영해주십시오."
+    document.getElementById("explain3").innerHTML = "<h2> 사용 방법 </h2>1. 사진을 촬영한다. <br>- 상기 주의사항을 확인하고 사진을 편집한다.<br>2. 이미지 선택 버튼을 클릭한다.<br>3. 사진을 업로드한다.<br>4. 확인 버튼을 클릭한다.<br>5. 간단하다."
+    }
+
+function english(){
+    document.getElementById("head_line").innerHTML = "What kind of drink is this";
+    document.getElementById("file2").innerHTML = "Selecting an image";
+    document.getElementById("revise").innerHTML = "Modifying the image";
+    document.getElementById("submit2").innerHTML = "Checking the image";
+	document.getElementById("explain1").innerHTML = "<h2> Detail of function</h2>  Using CNN deep learning technology,<br>  you can grasp all of the beverages with just a photo.";
+	document.getElementById("explain2").innerHTML = "<h2> The picture is.. </h2> 1. You should shoot in a bright place. <br> 2. The logo on the beverage must be clearly visible. <br> 3. One type of drink, only one drink <br> 4. Take a picture as close to the camera as possible.";
+	document.getElementById("explain3").innerHTML = "<h2> How to use </h2> 1. Take a picture.<br> -Check the above precautions and edit the photo. <br> 2. Click the Select Image button. <br> 3. Upload a picture.<br> 4. Click the OK button.<br> 5. Simple.";
+    }
+
+function chinese(){
+    document.getElementById("head_line").innerHTML = "這是什麼飲料";
+    document.getElementById("file2").innerHTML = "選擇圖像";
+    document.getElementById("revise").innerHTML = "修改圖像";
+    document.getElementById("submit2").innerHTML = "檢查圖像";
+	document.getElementById("explain1").innerHTML = "<h2> 功能細節 </h2> 使用CNN深度學習技術, <br> 只能通過圖片掌握飲料信息。";
+	document.getElementById("explain2").innerHTML = "<h2> 圖片是... </h2> 您應該在明亮的地方拍攝。 <br>  飲料上的徽標應清晰可見。<br>一種飲料，一種飲料 <br> 您應該在靠近相機的位置拍攝。";
+	document.getElementById("explain3").innerHTML = "<h2>如何使用 </h2>1.拍照。 <br>-檢查以上註意事項並編輯照片。 <br>2.單擊選擇圖像按鈕。 <br>3.上傳圖片。 <br>4.單擊確定按鈕。 <br>5.很簡單。";
+    }
+
+function japanese(){
+    document.getElementById("head_line").innerHTML = "これは何飲料だろう";
+    document.getElementById("file2").innerHTML = "画像を選択する";
+    document.getElementById("revise").innerHTML = "画像を変更する";
+    document.getElementById("submit2").innerHTML = "画像を確認する";
+	document.getElementById("explain1").innerHTML = "<h2> 機能説明 </h2> CNNディープラーニング技術を利用して、<br>写真だけで飲料水の情報を把握することができます。";
+	document.getElementById("explain2").innerHTML = "<h2> 写真は.. </h2>明るいところで撮影する必要があります。 <br> 飲料水のロゴが正確に示さなければします。<br>一種類の飲料、一つ飲料 <br>カメラ近い状態で撮影する必要があります。";
+	document.getElementById("explain3").innerHTML = "<h2>使用方法 </h2> 1.写真を撮影する。<br>- 上記の注意事項を確認し、写真を編集する。 <br>2.画像を選択ボタンをクリックします。 <br>3.写真をアップロードする。 <br>4.[OK]ボタンをクリックします。 <br>5.簡単である。";
+    }
+
+
+</script>
+{% endblock explain_contents%}
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>관광지 타입 분석</title>
+    <style>
+        .underline{
+        text-decoration:underline;
+        text-underline-position:under;
+        line-height:300%;
+        }
+
+        .text-center{
+        text-align:center;
+        padding:70px;
+        line-height: 310%;
+        }
+
+        input[type=submit]{
+        background-color: #00ccff;
+        padding: 8px 12px;
+        font-size:12px;
+        margin: 4px 2px;
+        cursor:pointer;
+        border-radius:6px;
+        }
+
+        #img_box{
+        width: 500px;
+        padding: 10px;
+        border: 5px solid gray;
+        margin-left: 8%;
+        float: left;
+        }
+
+        #result{
+        float: revert;
+        }
+
+        form{
+        text-align:center;
+        display:inline-block;
+        line-height:700%;
+        }
+    </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+<body>
+<div class="text-center">
+    <div class="underline">
+        <h2 >관광지 타입 분석</h2></div><br>
+    <form action="{% url 'func1:upload_file' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" id="file" accept="image/*" onchange="setThumbnail(event);">
+        {{ form }}
+       <input id="submit" type="submit" value="사진 분석">
+    </form></div>
+<div id="main">
+    <div id="main_image">
+        <div id="img_box">
+            <img src="../../static/{{b}}" width="470px;" height="430px;"/>
+        </div>
+        <div id="result">
+        <h3>해당 사진은 {{ val }} 입니다</h3>
+        <br>
+        <br>
+        <h4>현재 사진 타입과 유사한 관광지:
+            <br>
+            {{ best }}
+        </h4>
+        </div>
+    </div>
+<!--    <div id="result">-->
+<!--        <h3>해당 사진은 {{ val }} 입니다</h3>-->
+
+<!--        <h4>현재 사진 타입과 유사한 관광지: {{ best }}</h4>-->
+<!--    </div>-->
+</div>
+
+{% endblock explain_contents%}
+</body>
+</html>

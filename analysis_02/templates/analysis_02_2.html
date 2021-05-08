@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>analysis02_2</title>
+    <style>
+  .text-center{
+  text-align:center;
+  padding : 70px ;
+  line-height : 310%;}
+
+  #btn-group #button1 {
+    background-color : #4caf50;
+    border : 1px solid green;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration : none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+    width: 200px;
+    margin : 0;
+    }
+
+  #btn-group #button1:not (:last-child){
+    border-right: none;
+    }
+
+  #btn-group #button1:hover{
+    background-color: #3e8e41;
+    }
+  </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+<body>
+<div class = "text-center">
+    <h1>지역별 단계/관광객 그래프</h1>
+</div>
+  <div id="btn-group">
+    <button id="button1">전국</button>
+    <button id="button1">서울특별시</button>
+    <button id="button1">부산광역시</button>
+    <button id="button1">대구광역시</button>
+    <button id="button1">인천광역시</button>
+    <button id="button1">광주광역시</button>
+    <button id="button1">대전광역시</button>
+    <button id="button1">울산광역시</button>
+    <button id="button1">세종특별자치시</button>
+    <button id="button1">경기도</button>
+    <button id="button1">강원도</button>
+    <button id="button1">충청북도</button>
+    <button id="button1">충청남도</button>
+    <button id="button1">전라북도</button>
+    <button id="button1">전라남도</button>
+    <button id="button1">경상북도</button>
+    <button id="button1">경상남도</button>
+    <button id="button1">제주특별자치도</button>
+  </div>
+
+
+{% endblock explain_contents%}
+</body>
+</html>

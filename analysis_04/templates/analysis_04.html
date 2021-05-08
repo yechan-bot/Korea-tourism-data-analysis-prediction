@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Analysis_04</title>
+      <style>
+    .title {
+      font-size: 55px;
+      text-align: center;
+      padding: 3% 5% 0
+    }
+
+    hr {
+      width: 30%;
+      margin: 0.5% auto 0.5%
+    }
+
+    .subtitle {
+      font-size: 40px;
+      text-align: center;
+    }
+
+    .content {
+      font-size: 30px;
+      text-align: center;
+      padding: 3% 0 0;
+    }
+
+    .content li {
+      margin-top: 1%
+    }
+
+    #datasource-icon {
+      width: 400px;
+      height: 120px;
+      margin: 0px auto;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .select_form select{
+
+      width: 120px;
+      height: 39px;
+      border: 1px solid #999;
+      border-radius: 3px;
+      font-size: 15px;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    {% block header %}
+    {% endblock header%}
+    </style>
+</head>
+
+
+
+<body>
+ <div class="title">주제 소개</div>
+  <hr>
+  <div class="subtitle">전세계 코로나 확진자 수와 방한 관광객</div>
+  <div class="content">
+    <li>전세계 코로나 확진자 수와 방한 관광객 수</li>
+    <li>전세계 코로나 확진자 수와 방한 관광객 수 상관관계</li>
+    <li>코로나 전/후 방한 관광객 비교</li>
+  </div>
+
+
+ <div class="subtitle" style="margin-top: 5%">데이터 출처</div>
+ <br>
+  <div id="datasource-icon">
+    <a href="https://datalab.visitkorea.or.kr/datalab/portal/main/getMainForm.do">
+    <img src="{% static 'img/analysis_04/koreadatalap.jpg' %}">
+    </a>
+  </div>
+  <br>
+  <div id="datasource-icon">
+     <a href="https://corona-live.com/">
+     <img src="{% static 'img/analysis_04/coro2.png' %}">
+     </a>
+  </div>
+ </div>
+
+
+  <div class="title">분석과정</div>
+  <hr>
+  <div class="subtitle">데이터 수집</div>
+  <div class="content">
+    <li>전 세계 코로나 확진자 수 데이터 (국가별, 연령별, 성별)</li>
+    <li>방한 관광객 데이터</li>
+    <li>코로나 최다 확진자 수 국가 4개(미국,중국,인도,러시아) 데이터</li>
+    <li>코로나 전/후 방한관광객 데이터</li>
+  </div>
+
+
+ <div class="title">데이터 통계</div>
+ <br>
+ <br>
+     <form action="{% url 'trv:answer' %}" method="get">
+         <select name="year">
+             <option>2020년</option>
+             <option>2021년</option>
+         </select>
+
+         <select name="month">
+             <option>1월</option>
+             <option>2월</option>
+             <option>3월</option>
+             <option>4월</option>
+             <option>5월</option>
+             <option>6월</option>
+             <option>7월</option>
+             <option>8월</option>
+             <option>9월</option>
+             <option>10월</option>
+             <option>11월</option>
+             <option>12월</option>
+         </select>
+
+         <select name="year2">
+             <option>2020년</option>
+             <option>2021년</option>
+         </select>
+
+         <select name="month2">
+             <option>1월</option>
+             <option>2월</option>
+             <option>3월</option>
+             <option>4월</option>
+             <option>5월</option>
+             <option>6월</option>
+             <option>7월</option>
+             <option>8월</option>
+             <option>9월</option>
+             <option>10월</option>
+             <option>11월</option>
+             <option>12월</option>
+         </select>
+         <br>
+
+         <input type="submit" value="확인">
+     </form>
+     {{graph}}
+
+     <div class="Side">
+         <div class="select form">
+             <select name="" id="">
+                 <option>2020년</option>
+                 <option>2021년</option>
+             </select>
+                      <select name="" id="">
+             <option>1월</option>
+             <option>2월</option>
+             <option>3월</option>
+             <option>4월</option>
+             <option>5월</option>
+             <option>6월</option>
+             <option>7월</option>
+             <option>8월</option>
+             <option>9월</option>
+             <option>10월</option>
+             <option>11월</option>
+             <option>12월</option>
+         </select>
+             <br>
+         <img src="{% static 'img/analysis_04/trv.png' %}" width="300" height="300">
+         </div>
+     </div>
+ </div>
+
+<br>
+ <br>
+ <br>
+ <br>
+ <div class="title">상관관계 분석</div>
+ <br>
+ <img src="{% static 'img/analysis_04/relation.png' %}" >
+ </div>
+
+
+
+ <div class="title">코로나 전/후 방한관광객 비교
+ <img src="{% static 'img/analysis_04/com.png' %}">
+     </div>
+{% endblock explain_contents%}
+</body>
+</htm

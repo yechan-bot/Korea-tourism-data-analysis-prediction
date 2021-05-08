@@ -1,0 +1,306 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Analysis_02</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("table").toggle();
+  });
+});
+</script>
+    <style>
+    img.middle{
+      vertical-align:middle;
+      }
+
+  .underlineh2{
+  text-decoration:underline;
+  text-underline-position: under;
+  }
+
+  .text-center{
+  text-align:center;
+  padding : 70px ;
+  line-height : 310%;
+  }
+
+  select{
+  width: 180px;
+  padding : .8em .5em;
+  margin-left : 40px;
+  font-size : 18px;
+  }
+
+  form{
+  display : inline-block;
+  text-align : center;
+  }
+
+  #btn-group #button1 {
+    background-color : #4caf50;
+    border : 1px solid green;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration : none;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    float: left;
+    width: 200px;
+    margin : 0;
+    }
+
+  #btn-group #button1:not (:last-child){
+    border-right: none;
+    }
+
+  #btn-group #button1:hover{
+    background-color: #3e8e41;
+    }
+
+  input[type=submit]{
+    background-color: #4caf00;
+    border:5px solid;
+    border-radius: 13px;
+    color:white;
+    padding:13px 24px;
+    cursor: pointer;
+    margin-top:25px;
+    font-size: 20px;
+  }
+
+  table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 400px;
+  margin: auto;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 4px;
+  width : 20px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+  </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+
+<body>
+<div class="text-center">
+	<div class="underlineh2">
+  <h1>주제소개</h1></div>
+  <p style="font-size:22px">코로나 거리두기 단계별 관광객 상관관계</p><br>
+    <p style="font-size:19px">거리두기 단계 격상 및 하락에 따른 시/도별 관광객 수 대략적 예측 상관관계 분석 및 그래프 시각화</p><br>
+</div>
+<div class="text-center">
+    <p style="font-size:26px">데이터 출처</p><br>
+    <img src="{% static 'img/datalab.png' %}" alt="datalab">
+    <img src="{% static 'img/covid-19.png' %}" alt="covid-19">
+</div>
+
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+
+<div class="text-center" id="predict1">
+  <h1>거리두기 단계별 관광객 예측</h1>
+  </div>
+<form action="{% url 'diss:answer' %}#predict1" method="get">
+    <select name = 'nat'>
+        <option>전국</option> <option>서울특별시</option> <option>부산광역시</option>
+        <option>대구광역시</option> <option>인천광역시</option> <option>광주광역시</option>
+        <option>대전광역시</option> <option>울산광역시</option> <option>세종특별자치시</option>
+        <option>경기도</option> <option>강원도</option> <option>충청북도</option>
+        <option>충청남도</option> <option>전라북도</option> <option>전라남도</option>
+        <option>경상북도</option> <option>경상남도</option> <option>제주특별자치도</option>
+    </select>
+<!--    <select name = 'type'>-->
+<!--        <option>현지인</option> <option>외래인</option> <option>외국인</option>-->
+<!--        <option>외래+외국인</option>-->
+<!--    </select>-->
+    <select name = 'dis'>
+        <option>1단계</option> <option>2단계</option>
+        <option>3단계</option>
+    </select>
+    <br>
+    <input type="submit" value="예측하기">
+</form>
+<div class = "text-center">
+예상 결과 : {{nn}} 거리두기 {{dd}} 외국인 관광객 수는 약 {{result2}}명 입니다.
+</div>
+
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+
+<div class = "text-center">
+    <h1>지역별 단계/관광객 그래프</h1>
+</div>
+
+
+<form action="{% url 'diss:button1' %}#mygraph" method="get">
+  <div id="btn-group" type="submit">
+    <button id="button1" name="btn1" value="전국">전국</button>
+    <button id="button1" name="btn1" value="서울특별시">서울특별시</button>
+    <button id="button1" name="btn1" value="부산광역시">부산광역시</button>
+    <button id="button1" name="btn1" value="대구광역시">대구광역시</button>
+    <button id="button1" name="btn1" value="인천광역시">인천광역시</button>
+    <button id="button1" name="btn1" value="광주광역시">광주광역시</button>
+    <button id="button1" name="btn1" value="대전광역시">대전광역시</button>
+    <button id="button1" name="btn1" value="울산광역시">울산광역시</button>
+    <button id="button1" name="btn1" value="세종특별자치시">세종특별자치시</button>
+    <button id="button1" name="btn1" value="경기도">경기도</button>
+    <button id="button1" name="btn1" value="강원도">강원도</button>
+    <button id="button1" name="btn1" value="충청북도">충청북도</button>
+    <button id="button1" name="btn1" value="충청남도">충청남도</button>
+    <button id="button1" name="btn1" value="전라북도">전라북도</button>
+    <button id="button1" name="btn1" value="전라남도">전라남도</button>
+    <button id="button1" name="btn1" value="경상북도">경상북도</button>
+    <button id="button1" name="btn1" value="경상남도">경상남도</button>
+    <button id="button1" name="btn1" value="제주특별자치도">제주특별자치도</button>
+  </div>
+</form>
+<div id="mygraph" class="text-center">
+    {% autoescape off %}
+    {{graph1}}
+    {{graph2}}
+    {% endautoescape %}
+    <p style="text-align:center">{{sa}} 외국인 관광객 / 거리두기 단계</p>
+</div>
+
+<p style="border-bottom: 1px solid #000000; padding: 0.1em;"><b></b></p>
+
+<div class="text-center">
+    <h1>결론</h1>
+    <br><h3>지역별 외국인 관광객&거리두기 단계 상관계수 / 정확도</h3>
+    <table>
+  <tr>
+    <th>지역</th>
+    <th>상관계수</th>
+    <th>정확도</th>
+  </tr>
+  <tr>
+    <td>전국</td>
+    <td>-0.787413</td>
+    <td>0.794151</td>
+  </tr>
+  <tr>
+    <td>서울</td>
+    <td>-0.804372</td>
+    <td>0.807168</td>
+  </tr>
+  <tr>
+    <td>부산</td>
+    <td>-0.755299</td>
+    <td>0.708146</td>
+  </tr>
+  <tr>
+    <td>대구</td>
+    <td>-0.755960</td>
+    <td>0.752732</td>
+  </tr>
+  <tr>
+    <td>인천</td>
+    <td>-0.824466</td>
+    <td>0.860926</td>
+  </tr>
+  <tr>
+    <td>광주</td>
+    <td>-0.524306</td>
+    <td>0.385504</td>
+  </tr>
+  <tr>
+    <td>대전</td>
+    <td>-0.686336</td>
+    <td>0.642944</td>
+  </tr>
+  <tr>
+    <td>울산</td>
+    <td>-0.717160</td>
+    <td>0.627948</td>
+  </tr>
+  <tr>
+    <td>세종</td>
+    <td>-0.654325</td>
+    <td>0.602634</td>
+  </tr>
+  <tr>
+    <td>경기</td>
+    <td>-0.801542</td>
+    <td>0.803998</td>
+  </tr>
+  <tr>
+    <td>강원</td>
+    <td>-0.703887</td>
+    <td>0.698207</td>
+  </tr>
+  <tr>
+    <td>충북</td>
+    <td>-0.721398</td>
+    <td>0.661843</td>
+  </tr>
+  <tr>
+    <td>충남</td>
+    <td>-0.739168</td>
+    <td>0.664121</td>
+  </tr>
+  <tr>
+    <td>전북</td>
+    <td>-0.704004</td>
+    <td>0.573401</td>
+  </tr>
+  <tr>
+    <td>전남</td>
+    <td>-0.713725</td>
+    <td>0.556434</td>
+  </tr>
+  <tr>
+    <td>경북</td>
+    <td>-0.682380</td>
+    <td>0.545577</td>
+  </tr>
+  <tr>
+    <td>경남</td>
+    <td>-0.749909</td>
+    <td>0.677092</td>
+  </tr>
+  <tr>
+    <td>제주</td>
+    <td>-0.752121</td>
+    <td>0.724676</td>
+  </tr>
+</table>
+
+<button> 표 접기 / 펼치기 </button>
+  <br>
+<pre>
+전체적으로 -0.7~8의 높은 음의 상관관계
+사회적 거리두기 단계가 높아짐에 따라 외국인 관광객 수가 줄어듦을 의미
+
+외국인 : 본인 국가에서 구매한 USIM을 제거 하지 않은 외국인이
+	    한국에서 통신사(KT)와 신호를 주고받는 서비스를 사용하는 사람
+외국인관광객은 한국 단기체류자에 한함(과거 60일 기준, 15일 이하 체류자)
+  때문에 예측값에 대한 맹목적인 맹신에는 주의를 요함
+</pre>
+  <pre>
+<img src="{% static 'img/newplot_0.png' %}" alt="plot">
+전국 관광객 그래프를 보면 2019년 1월 수와 2020년 1월 수가 비슷한 것을 볼 수 있음
+코로나 사태가 아니라면 2019년과 비슷한 그래프를 그렸겠지만
+코로나가 본격적으로 시작하며 그 수가 급격히 줄어들기 시작,
+외국인 관광객이 제한되는 시점과 3단계 발표가 된 시점과 일치
+</pre>
+</div>
+
+{% endblock explain_contents%}
+</body>
+</html>

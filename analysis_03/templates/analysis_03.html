@@ -1,0 +1,350 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>시설에 따른 관광객 예측</title>
+        {% block header %}
+        {% endblock header%}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+        div.page{
+            height: 400px;
+        }
+
+        div.page-name{
+                padding-top: 50px;
+                padding-bottom: 10px;
+                text-align: center;
+                width: 100%;
+                margin: 0 auto;
+            }
+        div.select-box{
+                padding-right: 10px;
+                width: 100%;
+                height: 100px;
+                text-align: right;
+            }
+        div#page-main{
+                margin: 0 auto;
+            }
+        div#page-reality{
+                width:100%;
+                float:left;
+                margin-left: 80px;
+            }
+        div#page-predict{
+                width:100%;
+                margin-top: 60px;
+                margin-left: 100px;
+            }
+        div#building_count{
+            margin-top : 20px;
+            margin-bottom : 20px;
+            margin-left : 80px;
+        }
+
+        ##
+        div#page-data{
+            margin:0 auto;
+            text-align: center;
+        }
+        ##
+        div#main-graph{
+            width: 100%;
+            margin:0 auto;
+            text-align: center;
+            float: left;
+        }
+        div.page-graph{
+            width: 100%;
+            margin:0 auto;
+            text-align: center;
+        }
+
+        div#table{
+            width: 100%;
+            height: 200px;
+            margin: 0 auto;
+            text-align: center;
+            font: -webkit-small-control;
+
+        }
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            color: #212529;
+            font: -webkit-small-control;
+        }
+        div#container{
+            margin-top: 50px;
+            text-align-last: center;
+        }
+
+    </style>
+
+    <!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+    <form>
+        <!-- Chart code -->
+    <script>
+    am4core.ready(function() {
+
+    // Themes begin
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+
+    // Create chart instance
+    var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+    // Add data
+
+    chart.data = [
+            {% for i in tourism %}
+                {   "country" : "{{ i.type }}" ,
+                     "litres" :  {{ i.expenditure_20 }}
+                } ,
+            {% endfor %}
+        ];
+
+    // Add and configure Series
+    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+    pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
+
+    // This creates initial animation
+    pieSeries.hiddenState.properties.opacity = 1;
+    pieSeries.hiddenState.properties.endAngle = -90;
+    pieSeries.hiddenState.properties.startAngle = -90;
+
+    }); // end am4core.ready()
+    </script>
+
+        <!-- 막대그래프 -->
+        <style>
+        div.varchartdiv {
+          width: 100%;
+          height: 500px;
+        }
+
+        </style>
+        <!-- Resources -->
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+        <!-- Chart code -->
+        <script>
+        am4core.ready(function() {
+
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("varchartdiv", am4charts.XYChart3D);
+
+        // Add data
+
+        chart.data = [
+            {% for i in building %}
+                {   "country" : "{{ i.area }}" ,
+                     "visits" :  {{ i.building }}
+                } ,
+            {% endfor %}
+            {% for i in tourist %}
+                {   "country" : "{{ i.area }}" ,
+                     "visits" :  {{ i.tourist }}
+                } ,
+            {% endfor %}
+            {% for i in expend %}
+                {   "country" : "{{ i.area }}" ,
+                     "visits" :  {{ i.expenditure }}
+                } ,
+            {% endfor %}
+
+        ];
+
+
+        // Create axes
+        let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "country";
+        categoryAxis.renderer.labels.template.rotation = 270;
+        categoryAxis.renderer.labels.template.hideOversized = false;
+        categoryAxis.renderer.minGridDistance = 20;
+        categoryAxis.renderer.labels.template.horizontalCenter = "right";
+        categoryAxis.renderer.labels.template.verticalCenter = "middle";
+        categoryAxis.tooltip.label.rotation = 270;
+        categoryAxis.tooltip.label.horizontalCenter = "right";
+        categoryAxis.tooltip.label.verticalCenter = "middle";
+
+        let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.title.text = "";
+        valueAxis.title.fontWeight = "bold";
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries3D());
+        series.dataFields.valueY = "visits";
+        series.dataFields.categoryX = "country";
+        series.name = "Visits";
+        series.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+        series.columns.template.fillOpacity = .8;
+
+        var columnTemplate = series.columns.template;
+        columnTemplate.strokeWidth = 2;
+        columnTemplate.strokeOpacity = 1;
+        columnTemplate.stroke = am4core.color("#FFFFFF");
+
+        columnTemplate.adapter.add("fill", function(fill, target) {
+          return chart.colors.getIndex(target.dataItem.index);
+        })
+
+        columnTemplate.adapter.add("stroke", function(stroke, target) {
+          return chart.colors.getIndex(target.dataItem.index);
+        })
+
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.lineX.strokeOpacity = 0;
+        chart.cursor.lineY.strokeOpacity = 0;
+
+        }); // end am4core.ready()
+        </script>
+    </form>
+
+
+    <body>
+        <div class="page">
+            <div class="page-name">
+                <h3>회귀 분석을 이용한 관광객 예측</h3>
+            </div>
+            <div>
+                <h7 style="margin-left: 50px;">현제 업체 수 보기</h7>
+                <form action="{% url 'polls:Building_Area' %}" name="select_area" method="post" style="margin-top:30px; margin-left:80px;">
+                    {% csrf_token %}
+                        <select name="area" size="1">
+                            <option>서울</option>
+                            <option>부산</option>
+                            <option>대구</option>
+                            <option>인천</option>
+                            <option>광주</option>
+                            <option>대전</option>
+                            <option>울산</option>
+                            <option>세종</option>
+                            <option>경기</option>
+                            <option>강원</option>
+                            <option>충북</option>
+                            <option>충남</option>
+                            <option>전북</option>
+                            <option>전남</option>
+                            <option>경북</option>
+                            <option>경남</option>
+                            <option>제주</option>
+                        </select>
+                        <input type="submit" value="검색">
+                </form>
+            </div>
+            <div id="building_count">
+                {% for i in this_area %}
+                    <h4>음식점 및 숙박 업체 수 : {{ i.building }}</h4>
+                {% endfor %}
+            </div>
+            <div id="page-main">
+                <div id="page-reality">
+                         <form action="{% url 'polls:result' %}" name="select_area" method="post" style="margin-top: -50px;">
+                             {% csrf_token %}
+                             <input type="number" name="n1">
+                             <input type="submit" value="업체 수로 예측">
+                         </form>
+                </div>
+                <div id="page-predict">
+                    <h3>예상 관광객 : {{ result }} 명</h3>
+                    <h3>예상 관광수익 : {{ result2 }} 원</h3>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div class = "page-name">
+                <h3>지역별 숙박 & 음식점업 수에 따른 관광객 예측</h3>
+            </div>
+            <div class = "page-name">
+                <h4>관광객 주요 소비 타입</h4>
+                <br>
+                    <div class="chartdiv"></div>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-name">
+                <h3>숙박 및 음식점 수와 관광객</h3>
+            </div>
+
+            <div class="select-box">
+                <form action="{% url 'polls:analysis_03' %}" name="select_menu" method="post">
+                {% csrf_token %}
+                    <select name="menu_year" size="1">
+                        <option>2020</option>
+                        <option>2019</option>
+                    </select>
+                    <select name="menu" size="1">
+                        <option>지역별 관광객</option>
+                        <option>지역별 관광수익</option>
+                        <option>지역별 업체수</option>
+                    </select>
+                    <input type="submit" value="검색">
+                </form>
+            </div>
+            <div id = "main-graph">
+                <div class = "page-graph">
+                    <h4>지역별 데이터</h4>
+                </div>
+
+                <div class="varchartdiv"></div>
+            </div>
+            <div id="container">
+                <h4>종합 정보 표</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>지역</th>
+                            <th>음식점 및 숙박 업체수</th>
+                            <th>방문한 외국인 관광객수</th>
+                            <th>관광 수익</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in posts %}
+                        <tr>
+                            <td>{{ i.area }}</td>
+                            <td>{{ i.building }}</td>
+                            <td>{{ i.tourist }}</td>
+                            <td>{{ i.expenditure }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock explain_contents%}

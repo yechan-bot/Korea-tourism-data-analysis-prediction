@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+{% load static %}
+{%  block explain_contents %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <title>K-Digital 3Team Project</title>
+    <style>
+
+        #introduceTitle {
+            text-align: center;
+            padding: 5% 5% 0
+        }
+
+        #introduceTitle h1 {
+            font-size: 50px;
+        }
+
+        #memberTitle {
+            text-align: center;
+            padding: 3% 0 0;
+        }
+
+        #member {
+            padding: 1% 1% 0;
+            height: 60%;
+        }
+
+        #image {
+            height: 40%
+        }
+
+        #image div {
+            width: 14.28%;
+            height:100%;
+            float:left;
+            padding: 0 0.5% 0
+        }
+
+        #name {
+            height:10%;
+            padding-top:0.5%
+        }
+
+        #name div {
+            float: left;
+            width: 14.28%;
+            height:100%;
+            text-align:
+            center;
+            font-size: 30px
+        }
+
+        #role {
+            height: 45%;
+            padding-top: 1%;
+        }
+
+        #role div {
+             width: 14.28%;
+             height:100%;
+             float:left;
+             padding: 0 1% 0
+        }
+
+        #role div h1 {
+            text-align: center;
+            font-size: 30px
+        }
+
+        #role ul {
+            list-style: disc;
+            text-align: center;
+            font-size: 30px
+        }
+
+        #trendmain {
+            margin: 0 auto;
+            width: 90%;
+            height: 100%;
+        }
+
+        .subtitle {
+            width:100%;
+            text-align:center;
+            font-size: 30px;
+            margin-bottom:1%;
+            margin-top: 3%;
+        }
+
+        #satisficationSection {
+            background-color: #F6F6F6;
+            width:100%;
+            height:50%;
+        }
+
+        .graphSection {
+            width:50%; height:100%;
+            float:left;
+            margin-right:3%;
+
+
+        }
+
+        .graphdataSection {
+             width:47%;
+             height:100%;
+             float:left;
+        }
+
+        .graphdataSection div {
+             width:100%;
+             height:50%;
+        }
+
+        .satisfictaionBoxLine1 {
+             width:100%;
+             height:50%;
+        }
+
+        .data {
+            width:100%;
+            height:60%;
+            text-align:center;
+            font-size:30px;
+            padding-top:30%;
+        }
+
+        .label {
+            width:100%;
+            height:40%;
+            text-align:center;
+            font-size:20px;
+            padding-top:10%;
+        }
+
+    </style>
+    {% block header %}
+    {% endblock header%}
+</head>
+<body>
+
+<div id="introduceTitle">
+    <h1><b>한국 관광 데이터 분석/예측 페이지</b></h1>
+</div>
+
+<div id="trendmain">
+    <div class="subtitle">외국인 한국관광 만족도 (평균점수, 2019년 기준)</div>
+    <div id="satisficationSection">
+        <div class="graphSection" id="graph"></div>
+        <div class="graphdataSection">
+            <div class="satisfictaionBoxLine1">
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">94점</div>
+                    <div class="label">치안</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">93점</div>
+                    <div class="label">숙박</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">92점</div>
+                    <div class="label">대중교통</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">92점</div>
+                    <div class="label">출입국절차</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">90점</div>
+                    <div class="label">음식</div>
+                </div>
+            </div>
+            <div class="satisfictaionBoxLine1">
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">90점</div>
+                    <div class="label">관광지매력도</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">89점</div>
+                    <div class="label">쇼핑</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">85점</div>
+                    <div class="label">관광안내서비스</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">83점</div>
+                    <div class="label">여행경비</div>
+                </div>
+                <div style="width:20%; height:100%; float:left;">
+                    <div class="data">74점</div>
+                    <div class="label">언어소통</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="subtitle">외국인 한국 관광 동향 (2020년 기준)</div>
+    <div style="width:100%; height:30.3%; padding: 0 10%;">
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">-80%</div>
+            <div class="label">관광객수 증감</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">4월</div>
+            <div class="label">주요방문 월</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">서울</div>
+            <div class="label">주요방문도시</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">여성</div>
+            <div class="label">성별</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">20대</div>
+            <div class="label">주요연령</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">쇼핑</div>
+            <div class="label">주요활동</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">중국</div>
+            <div class="label">최다방문국가</div>
+        </div>
+        <div style="width:12.5%; height:100%; float:left;">
+            <div class="data">중국</div>
+            <div class="label">최다소비국가</div>
+        </div>
+    </div>
+
+
+    <div class="subtitle">코로나 단계별 방한 외국인 수</div>
+    <div style="width:100%; height:50%; background-color: #F6F6F6;">
+        <div id="covidGraph" class="graphSection"></div>
+        <div class="graphdataSection">
+            <div style="width:25%; height:50%; float:left; margin-top:12.5%">
+                <div class="data">26005명</div>
+                <div class="label">1단계</div>
+            </div>
+            <div style="width:25%; height:50%; float:left; margin-top:12.5%">
+                <div class="data">25083명</div>
+                <div class="label">1.5단계</div>
+            </div>
+            <div style="width:25%; height:50%; float:left; margin-top:12.5%">
+                <div class="data">24162명</div>
+                <div class="label">2단계</div>
+            </div>
+            <div style="width:25%; height:50%; float:left; margin-top:12.5%">
+                <div class="data">22319명</div>
+                <div class="label">3단계</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("graph", am4charts.XYChart);
+chart.padding(20, 20, 10, 10);
+
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.dataFields.category = "network";
+categoryAxis.renderer.minGridDistance = 1;
+categoryAxis.renderer.inversed = true;
+categoryAxis.renderer.grid.template.disabled = true;
+
+var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.categoryY = "network";
+series.dataFields.valueX = "MAU";
+series.tooltipText = "{valueX.value}"
+series.columns.template.strokeOpacity = 0;
+series.columns.template.column.cornerRadiusBottomRight = 5;
+series.columns.template.column.cornerRadiusTopRight = 5;
+
+var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+labelBullet.label.horizontalCenter = "left";
+labelBullet.label.dx = 10;
+labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#.0as')}";
+labelBullet.locationX = 1;
+
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target){
+  return chart.colors.getIndex(target.dataItem.index);
+});
+
+categoryAxis.sortBySeries = series;
+chart.data = [
+    {
+      "network": "치안",
+      "MAU": 94
+    },
+    {
+      "network": "숙박",
+      "MAU": 93
+    },
+    {
+      "network": "대중교통",
+      "MAU": 92
+    },
+    {
+      "network": "출입국절차",
+      "MAU": 92
+    },
+    {
+      "network": "음식",
+      "MAU": 90
+    },
+    {
+      "network": "관광지 매력도",
+      "MAU": 90
+    },
+    {
+      "network": "쇼핑",
+      "MAU": 89
+    },
+    {
+      "network": "관광안내서비스",
+      "MAU": 85
+    },
+    {
+      "network": "여행경비",
+      "MAU": 83
+    },
+    {
+      "network": "언어소통",
+      "MAU": 74
+    }
+  ]
+
+
+
+}); // end am4core.ready()
+
+</script>
+    <script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+var chart = am4core.create("covidGraph", am4charts.XYChart);
+chart.padding(20, 20, 10, 10);
+
+var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+categoryAxis.renderer.grid.template.location = 0;
+categoryAxis.dataFields.category = "network";
+categoryAxis.renderer.minGridDistance = 1;
+categoryAxis.renderer.inversed = true;
+categoryAxis.renderer.grid.template.disabled = true;
+
+var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+valueAxis.min = 0;
+
+var series = chart.series.push(new am4charts.ColumnSeries());
+series.dataFields.categoryY = "network";
+series.dataFields.valueX = "MAU";
+series.tooltipText = "{valueX.value}"
+series.columns.template.strokeOpacity = 0;
+series.columns.template.column.cornerRadiusBottomRight = 5;
+series.columns.template.column.cornerRadiusTopRight = 5;
+
+
+var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+labelBullet.label.horizontalCenter = "left";
+labelBullet.label.dx = 10;
+labelBullet.label.text = "{values.valueX.workingValue.formatNumber('#.0as')}";
+labelBullet.locationX = 1;
+
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+series.columns.template.adapter.add("fill", function(fill, target){
+  return chart.colors.getIndex(target.dataItem.index);
+});
+
+categoryAxis.sortBySeries = series;
+chart.data = [
+    {
+      "network": "1단계",
+      "MAU": 26005
+    },
+    {
+      "network": "1.5단계",
+      "MAU": 25083
+    },
+    {
+      "network": "2단계",
+      "MAU": 24162
+    },
+    {
+      "network": "3단계",
+      "MAU": 22319
+    }
+  ]
+
+
+
+}); // end am4core.ready()
+
+    </script>
+
+
+    {% endblock explain_contents%}
+
+</body>
+</html>
