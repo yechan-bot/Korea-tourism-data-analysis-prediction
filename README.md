@@ -34,6 +34,7 @@
 ### 주제 소개 및 데이터 출처
 ![1](https://user-images.githubusercontent.com/62364849/124377909-8a41f080-dce9-11eb-9757-9b27912ba824.png)
 - 주제 링크 클릭시 분석 페이지로 이동
+![KakaoTalk_20210704_155614999](https://user-images.githubusercontent.com/62364849/126144591-ca80b1a8-fb36-417a-8297-047a543347c8.jpg)
 
 ### 2019년~2020년 방문자 수, 소비액, 목적지 검색 횟수 월별 그래프 비교
 ![2](https://user-images.githubusercontent.com/62364849/124377941-c5442400-dce9-11eb-8417-743eabeb0e40.png)
